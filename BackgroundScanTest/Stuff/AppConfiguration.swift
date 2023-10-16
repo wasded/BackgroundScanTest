@@ -27,7 +27,8 @@ class AppConfiguration {
     static func defaultModel() -> AppConfiguration {
         return AppConfiguration(
             backgroundScanUUIDS: [
-                CBUUID(string: "330C5AD1-7261-4F06-B87C-0F6342365C2E")
+                CBUUID(string: "330C5AD1-7261-4F06-B87C-0F6342365C2E"),
+                CBUUID(string: "4c6607e0-2c3d-4fca-b201-0246773d6e9c")
             ],
             commonScanUUIDS: [
                 CBUUID(string: "4c6607e0-2c3d-4fca-b201-0246773d6e9c")

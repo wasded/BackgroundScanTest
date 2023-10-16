@@ -22,6 +22,28 @@ class MainViewController: UIViewController {
         return item
     }()
     
+    lazy var shareLogsButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(
+            title: "Share logs",
+            style: .plain,
+            target: self,
+            action: #selector(self.shareDidTap)
+        )
+        
+        return item
+    }()
+    
+    lazy var clearLogsButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(
+            title: "Clear logs",
+            style: .plain,
+            target: self,
+            action: #selector(self.clearLogsDidTap)
+        )
+        
+        return item
+    }()
+    
     lazy var startScanButton: CommonButton = {
         let item = CommonButton()
         item.setTitle("Start scan", for: .normal)
@@ -81,6 +103,7 @@ class MainViewController: UIViewController {
     
     // MARK: - Properties
     
+    let fileManager = FileManager.default
     let viewModel = MainViewModel()
     
     let peripheralNoNameValue: String = "unknown"
@@ -166,6 +189,9 @@ class MainViewController: UIViewController {
     
     func configureUI() {
         self.view.backgroundColor = .white
+        self.navigationItem.leftBarButtonItem = self.clearLogsButton
+        self.navigationItem.rightBarButtonItem = self.shareLogsButton
+        
         self.scanIsEnabledDidChanged(value: self.viewModel.scanIsEnabled)
         self.selectedPeripheralDidChanged(value: self.viewModel.selectedPeripheral)
         self.connectingStatusDidChanged(value: self.viewModel.connectingStatus)
@@ -245,6 +271,28 @@ class MainViewController: UIViewController {
     
     @objc func disconnectDidTap() {
         self.viewModel.disconnect()
+    }
+    
+    @objc func shareDidTap() {
+        let documentURLs = self.fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+
+        guard let folderUrl = documentURLs.first else { return }
+
+        let files = (try? self.fileManager.contentsOfDirectory(atPath: folderUrl.path)) ?? []
+        
+        guard let file = files.first(where: { $0.contains(log.logFileName) }) else { return }
+        
+        let vc = UIActivityViewController(
+            activityItems: [
+                folderUrl.appendingPathComponent(file)
+            ],
+            applicationActivities: nil
+        )
+        self.present(vc, animated: true)
+    }
+    
+    @objc func clearLogsDidTap() {
+        _ = log.fileDest.deleteLogFile()
     }
 }
 

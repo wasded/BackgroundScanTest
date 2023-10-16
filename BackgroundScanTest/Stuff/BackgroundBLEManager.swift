@@ -7,16 +7,16 @@
 
 import Foundation
 import CoreBluetooth
+import OSLog
 
 protocol BackgroundBLEManagerDelegate: AnyObject {
-    func didDiscovered(peripheral: CBPeripheral)
+    func didDiscovered(peripheral: CBPeripheral, advData: [String: Any])
+    func willRestore()
 }
 
 class BackgroundBLEManager: NSObject {
     
     // MARK: - Properties
-    
-//    static let shared = BackgroundBLEManager()
     
     lazy var centralManager: CBCentralManager = {
         return CBCentralManager(
@@ -43,10 +43,12 @@ class BackgroundBLEManager: NSObject {
     // MARK: - Methods
     
     func scan(services: [CBUUID]) {
+        log.info("🍚 scan did start")
         self.centralManager.scanForPeripherals(withServices: services)
     }
     
     func stopScan() {
+        log.info("🍚 scan did end")
         self.centralManager.stopScan()
     }
     
@@ -59,14 +61,33 @@ class BackgroundBLEManager: NSObject {
 
 extension BackgroundBLEManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        var state: String = {
+            switch central.state {
+            case .poweredOn:
+                return "poweredOn"
+            case .poweredOff:
+                return "poweredOff"
+            case .resetting:
+                return "resetting"
+            case .unauthorized:
+                return "unauthorized"
+            case .unsupported:
+                return "unsupported"
+            case .unknown:
+                return "unknown"
+            }
+        }()
         
+        log.info("🍚 centralManagerDidUpdateState \(state)")
     }
     
     func centralManager(_: CBCentralManager,
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String: Any],
                         rssi RSSI: NSNumber) {
-        self.delegate?.didDiscovered(peripheral: peripheral)
+        os_log("👀 backgroundScan did discovered peripheral = \(peripheral), advData = \(advertisementData)")
+        log.info("👀 backgroundScan did discovered peripheral = \(peripheral), advData = \(advertisementData)")
+        self.delegate?.didDiscovered(peripheral: peripheral, advData: advertisementData)
     }
     
     func centralManager(_: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -75,5 +96,9 @@ extension BackgroundBLEManager: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
+    }
+    
+    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
+        log.info("🗿background scan will restore \(dict)")
     }
 }

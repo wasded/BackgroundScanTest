@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D1C8A1D2AD829C400D6109B /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 4D1C8A1C2AD829C400D6109B /* SwiftyBeaver */; };
+		4D1C8A1F2AD829F300D6109B /* log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1C8A1E2AD829F300D6109B /* log.swift */; };
 		4D47D52D2AD7E6CA0090201B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D47D52C2AD7E6CA0090201B /* AppDelegate.swift */; };
 		4D47D5342AD7E6CA0090201B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D47D5322AD7E6CA0090201B /* Main.storyboard */; };
 		4D47D5362AD7E6CC0090201B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D47D5352AD7E6CC0090201B /* Assets.xcassets */; };
@@ -23,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D1C8A1E2AD829F300D6109B /* log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = log.swift; sourceTree = "<group>"; };
 		4D47D5292AD7E6CA0090201B /* BackgroundScanTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundScanTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D47D52C2AD7E6CA0090201B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D47D5332AD7E6CA0090201B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D1C8A1D2AD829C400D6109B /* SwiftyBeaver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,20 +100,13 @@
 		4DC07E4A2AD8237500EB3694 /* Stuff */ = {
 			isa = PBXGroup;
 			children = (
-				4DC07E4D2AD8246E00EB3694 /* Configuration */,
 				4D47D5422AD7EF260090201B /* CommonBLEManager.swift */,
+				4D1C8A1E2AD829F300D6109B /* log.swift */,
+				4DC07E4E2AD8247A00EB3694 /* AppConfiguration.swift */,
 				4DC07E4B2AD8238200EB3694 /* BackgroundScanManager.swift */,
 				4DC07E472AD81FE500EB3694 /* BackgroundBLEManager.swift */,
 			);
 			path = Stuff;
-			sourceTree = "<group>";
-		};
-		4DC07E4D2AD8246E00EB3694 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				4DC07E4E2AD8247A00EB3694 /* AppConfiguration.swift */,
-			);
-			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +125,9 @@
 			dependencies = (
 			);
 			name = BackgroundScanTest;
+			packageProductDependencies = (
+				4D1C8A1C2AD829C400D6109B /* SwiftyBeaver */,
+			);
 			productName = BackgroundScanTest;
 			productReference = 4D47D5292AD7E6CA0090201B /* BackgroundScanTest.app */;
 			productType = "com.apple.product-type.application";
@@ -156,6 +156,9 @@
 				Base,
 			);
 			mainGroup = 4D47D5202AD7E6CA0090201B;
+			packageReferences = (
+				4D1C8A1B2AD829C400D6109B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
+			);
 			productRefGroup = 4D47D52A2AD7E6CA0090201B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -183,6 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D1C8A1F2AD829F300D6109B /* log.swift in Sources */,
 				4D47D52D2AD7E6CA0090201B /* AppDelegate.swift in Sources */,
 				4DC07E442AD812DC00EB3694 /* DiscoveredPeripheralCell.swift in Sources */,
 				4DC07E462AD81A0F00EB3694 /* CommonLabel.swift in Sources */,
@@ -347,6 +351,8 @@
 				DEVELOPMENT_TEAM = 58826524B7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BackgroundScanTest/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = Description;
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = Description;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -378,6 +384,8 @@
 				DEVELOPMENT_TEAM = 58826524B7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BackgroundScanTest/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = Description;
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = Description;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -421,6 +429,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4D1C8A1B2AD829C400D6109B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4D1C8A1C2AD829C400D6109B /* SwiftyBeaver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D1C8A1B2AD829C400D6109B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
+			productName = SwiftyBeaver;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4D47D5212AD7E6CA0090201B /* Project object */;
 }
